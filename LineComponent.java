@@ -3,11 +3,15 @@ import java.awt.geom.Rectangle2D;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
-
-public class Line extends JComponent{
+/*Purpose: Deals with the Line that is drawn
+ * 1)sets the starting x and y positions for the line
+ * 2)Sets the color of the line by a pop up
+ * 3)moveX and moveY functions
+ */
+public class LineComponent extends JComponent{
     Rectangle2D line;
     int x,y,width,height;
-    public Line(int xPos, int yPos,int w, int h)
+    public LineComponent(int xPos, int yPos,int w, int h)
     {
         x = xPos;
         y = yPos;

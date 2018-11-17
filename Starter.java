@@ -29,9 +29,11 @@ public class Starter{
         frame.add(rCforStation);
         frame.setVisible(true); 
         
-        
-        Starter.addGrid(frame, 20);
-        
+        int grid = JOptionPane.showConfirmDialog(null, "Would you like to add grids to help you?");
+        if(grid == 0){
+            Starter.addGrid(frame, 15);
+        }
+
         class myClickListener implements MouseListener{
             boolean released = true;
             boolean linePressed = false;
@@ -51,9 +53,12 @@ public class Starter{
                     yPos = e.getY()-40;
                     released = false;
                     realeasedJustChanged = true;
+                    Circle cCforLine = new Circle(xPos, yPos, 5, Color.LIGHT_GRAY);
+                    frame.add(cCforLine);
+                    frame.setVisible(true);
                 }
                 if(linePressed == true && released == false && realeasedJustChanged == false){
-                    Line lC = new Line(xPos, yPos, e.getX()-10, e.getY()-40, Color.BLACK);
+                    Line lC = new Line(xPos, yPos, e.getX()-10, e.getY()-40, Color.BLACK, 3);
                     color = JColorChooser.showDialog(lC, "Choose Your Color:", Color.BLACK);
                     lC.setColor(color);
                     frame.add(lC);
@@ -82,7 +87,7 @@ public class Starter{
                         }
                     }
                     if(stationHere == false){
-                         Circle cC = new Circle(xPos, yPos, 10, Color.WHITE);
+                         Circle cC = new Circle(xPos-4, yPos-4, 10, Color.WHITE);
                          color = JColorChooser.showDialog(cC, "Choose Your Color:", Color.BLACK);
                          cC.setColor(color);
                          frame.add(cC);
@@ -95,8 +100,6 @@ public class Starter{
                          points.add(pointForStation);
                     }
                 }
-                
-               
                 if(e.getX()-10 > 845 && e.getX()-10 <1155 && e.getY()-40 >195 && e.getY()-40 < 305){
                     rCforLines.setColor(Color.LIGHT_GRAY);
                     rCforStation.setColor(Color.GRAY);
@@ -109,6 +112,7 @@ public class Starter{
             public void mouseExited(MouseEvent e) {}
             public void mouseReleased(MouseEvent e) {}
         }
+        
         frame.addMouseListener(new myClickListener());
     }
     
@@ -127,14 +131,14 @@ public class Starter{
         for(int i =0; i< howManyGrids; i++){
             yStart = 0;
             xStart = xStart + everyXpixles;
-            Line line = new Line(xStart, yStart, xStart,frame.getHeight(), Color.LIGHT_GRAY);
+            Line line = new Line(xStart, yStart, xStart,frame.getHeight(), Color.LIGHT_GRAY, 1);
             frame.add(line);
             frame.setVisible(true);
         }
         for(int i = 0; i< howManyGrids; i++){
             xStart = 0;
             yStart = yStart + everyXpixles;
-            Line line = new Line(xStart, yStart, frame.getWidth(),yStart, Color.LIGHT_GRAY);
+            Line line = new Line(xStart, yStart, frame.getWidth(),yStart, Color.LIGHT_GRAY, 1);
             frame.add(line);
             frame.setVisible(true);
         }

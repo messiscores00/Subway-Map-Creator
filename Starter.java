@@ -31,7 +31,7 @@ public class Starter{
         
         int grid = JOptionPane.showConfirmDialog(null, "Would you like to add grids to help you?");
         if(grid == 0){
-            Starter.addGrid(frame, 15);
+            Starter.addGrid(frame, 20);
         }
 
         class myClickListener implements MouseListener{
@@ -87,13 +87,13 @@ public class Starter{
                         }
                     }
                     if(stationHere == false){
-                         Circle cC = new Circle(xPos-4, yPos-4, 10, Color.WHITE);
+                         Circle cC = new Circle(xPos-4, yPos-4, 15, Color.WHITE);
                          color = JColorChooser.showDialog(cC, "Choose Your Color:", Color.BLACK);
                          cC.setColor(color);
                          frame.add(cC);
                          frame.setVisible(true);
                          String input = JOptionPane.showInputDialog(null, "Please enter the name of your station that you would like:");
-                         Text tC = new Text(xPos-11, yPos+21, input, 12);
+                         Text tC = new Text(xPos-11, yPos+36, input, 15);
                          frame.add(tC);
                          frame.setVisible(true);
                          int[] pointForStation = {xPos, yPos};
@@ -117,8 +117,7 @@ public class Starter{
     }
     
     public static void addGrid(JFrame frame, int everyXpixles){
-        frame.getHeight();
-        frame.getWidth();
+        Color color = new Color(0.5f,0.5f,0.5f, .1f);
         int xStart = 0;
         int yStart = 0;
         int howManyGrids;
@@ -131,14 +130,14 @@ public class Starter{
         for(int i =0; i< howManyGrids; i++){
             yStart = 0;
             xStart = xStart + everyXpixles;
-            Line line = new Line(xStart, yStart, xStart,frame.getHeight(), Color.LIGHT_GRAY, 1);
+            Line line = new Line(xStart, yStart, xStart,frame.getHeight(), color, 1);
             frame.add(line);
             frame.setVisible(true);
         }
         for(int i = 0; i< howManyGrids; i++){
             xStart = 0;
             yStart = yStart + everyXpixles;
-            Line line = new Line(xStart, yStart, frame.getWidth(),yStart, Color.LIGHT_GRAY, 1);
+            Line line = new Line(xStart, yStart, frame.getWidth(),yStart, color, 1);
             frame.add(line);
             frame.setVisible(true);
         }

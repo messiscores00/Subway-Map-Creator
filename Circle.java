@@ -24,7 +24,8 @@ public class Circle extends JComponent
         g2.setColor(Color.BLACK);
         g2.fill(circle);
         g2.setColor(color);
-        Ellipse2D insideCircle = new Ellipse2D.Double(xPos, yPos, radius * .7, radius * .7);
+        //makes a smaller circle in the original circle for the color specified by the user
+        Ellipse2D insideCircle = new Ellipse2D.Double(xPos+2, yPos+2, radius * .7, radius * .7);
         g2.fill(insideCircle);
     }
     

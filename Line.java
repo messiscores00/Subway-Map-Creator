@@ -11,6 +11,7 @@ public class Line extends JComponent{
     Color color;
     Graphics2D g2;
     int xStart, yStart, xEnd, yEnd;
+    //for the width of the line in pixles
     float stroke;
     
     public Line(int xStart, int yStart,int xEnd, int yEnd, Color color, float stroke){

@@ -36,24 +36,33 @@ public class Starter{
         }
 
         class myClickListener implements MouseListener{
+            //checks if the line has been released
             boolean released = true;
+            //If the line box has been pressed
             boolean linePressed = false;
+            //If the station box has been preseed
             boolean stationPressed = true;
+            //checks if the release boolean has just changed in that call of the method
             boolean realeasedJustChanged = false;
+            //If there is a station where the user clicks
             boolean stationHere = false;
+            //the last x and y positions
             int xPos;
             int yPos;
-            int addStation;
+            //sets the color to white
             Color color = Color.WHITE;
+            //creates an arrray list of an int array with 2 elements
             ArrayList<int[]> points = new <int[]>ArrayList();
             public void mouseClicked(MouseEvent e) {
                 realeasedJustChanged = false;
+                //sets the beginning value of the line
                 if(linePressed == true && released == true){
                     xPos = e.getX()-10;
                     yPos = e.getY()-40;
                     released = false;
                     realeasedJustChanged = true;
                 }
+                //sets the endpoint of the line and its color
                 if(linePressed == true && released == false && realeasedJustChanged == false){
                     Line lC = new Line(xPos, yPos, e.getX()-10, e.getY()-40, Color.BLACK, 3);
                     color = JColorChooser.showDialog(lC, "Choose Your Color:", Color.BLACK);
@@ -64,7 +73,7 @@ public class Starter{
                     yPos = e.getY()-43;
                     released = true;
                 }
-
+                //sees if the user has clicked on the Lines box in the top right 
                  if(e.getX()-10 > 845 && e.getX()-10 <1155 && e.getY()-40 >45 && e.getY()-40 < 155){
                     rCforLines.setColor(Color.GRAY);
                     rCforStation.setColor(Color.LIGHT_GRAY);
@@ -72,7 +81,7 @@ public class Starter{
                     stationPressed = false;
                     released = true;
                 }
-                
+                //makes a station if the user has clicked on the stations box in the top right
                 if(stationPressed == true){
                     xPos = e.getX()-10;
                     yPos = e.getY()-40;
@@ -97,6 +106,7 @@ public class Starter{
                          points.add(pointForStation);
                     }
                 }
+                //sees if the user has clicked on the Stations box in the top right
                 if(e.getX()-10 > 845 && e.getX()-10 <1155 && e.getY()-40 >195 && e.getY()-40 < 305){
                     rCforLines.setColor(Color.LIGHT_GRAY);
                     rCforStation.setColor(Color.GRAY);
@@ -114,16 +124,20 @@ public class Starter{
     }
     
     public static void addGrid(JFrame frame, int everyXpixles){
+        //sets the opacity of the lines for the grids
         Color color = new Color(0.5f,0.5f,0.5f, .1f);
+        //puts the stat=rting x and y positions in the top left
         int xStart = 0;
         int yStart = 0;
+        //checks to see how many grids are necessary to fill teh screen
         int howManyGrids;
+            //sees if the frame is bigger in the height or width and makes lines to do that
         if(frame.getHeight() > frame.getWidth()){
             howManyGrids = frame.getHeight() / everyXpixles;
         }else{
             howManyGrids = frame.getWidth() / everyXpixles;
         }
-         
+        //for the vertical lines
         for(int i =0; i< howManyGrids; i++){
             yStart = 0;
             xStart = xStart + everyXpixles;
@@ -131,6 +145,7 @@ public class Starter{
             frame.add(line);
             frame.setVisible(true);
         }
+        //for the horizonatl lines
         for(int i = 0; i< howManyGrids; i++){
             xStart = 0;
             yStart = yStart + everyXpixles;

@@ -10,16 +10,17 @@ import java.awt.Dialog;
 
 public class Starter{
     public static void main(String[] args){
+        //creating the JFrame
         JFrame frame = new JFrame("Main Frame");
         frame.setSize(1200, 800);
         frame.setVisible(true);    
         
-
+        //creating the rectangles and the text in the top right corner
         Rectangle rCforLines = new Rectangle(850, 50, 300, 100, Color.LIGHT_GRAY);
         Rectangle rCforStation = new Rectangle(850, 200, 300, 100, Color.GRAY);
         Text tCforLines = new Text(938, 115, "Lines", 50);
         Text tCforStations = new Text(910, 265, "Stations", 50);
-        
+        //adds the rectangle and text and sets visible to true 
         frame.add(tCforLines);
         frame.setVisible(true); 
         frame.add(tCforStations);
@@ -28,7 +29,7 @@ public class Starter{
         frame.setVisible(true); 
         frame.add(rCforStation);
         frame.setVisible(true); 
-        
+        //asks the user if they would like to put a grid and runs the grid method which can be found at the end of the code
         int grid = JOptionPane.showConfirmDialog(null, "Would you like to add grids to help you?");
         if(grid == 0){
             Starter.addGrid(frame, 20);
@@ -45,7 +46,6 @@ public class Starter{
             int addStation;
             Color color = Color.WHITE;
             ArrayList<int[]> points = new <int[]>ArrayList();
-            
             public void mouseClicked(MouseEvent e) {
                 realeasedJustChanged = false;
                 if(linePressed == true && released == true){
@@ -53,9 +53,6 @@ public class Starter{
                     yPos = e.getY()-40;
                     released = false;
                     realeasedJustChanged = true;
-                    Circle cCforLine = new Circle(xPos, yPos, 5, Color.LIGHT_GRAY);
-                    frame.add(cCforLine);
-                    frame.setVisible(true);
                 }
                 if(linePressed == true && released == false && realeasedJustChanged == false){
                     Line lC = new Line(xPos, yPos, e.getX()-10, e.getY()-40, Color.BLACK, 3);

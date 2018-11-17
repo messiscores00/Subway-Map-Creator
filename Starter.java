@@ -1,33 +1,143 @@
 import javax.swing.JFrame;
 import java.awt.event.*;
+import javax.swing.JOptionPane;
+import javax.swing.JColorChooser;
+import java.awt.Color;
+import javax.swing.JComponent;
+import java.util.ArrayList;
+import java.lang.Float;
+import java.awt.Dialog;
 
 public class Starter{
     public static void main(String[] args){
-        JFrame f = new JFrame("Main Frame");
-        f.setSize(500, 500);
-        Line line = new Line(10,10,100,20);
-        f.add(line);
-        f.setVisible(true);
+        JFrame frame = new JFrame("Main Frame");
+        frame.setSize(1200, 800);
+        frame.setVisible(true);    
+        
 
-        class myKeyListener implements KeyListener
-        {
-            public void keyPressed(KeyEvent e)
-            {
-                //when a key is pressed I want the rectangle to move
-                if(e.getKeyCode()==KeyEvent.VK_LEFT){
-                    Line line2 = new Line(10, 10, 100, 2);
-                    f.add(line2);
-                    f.setVisible(true);
+        Rectangle rCforLines = new Rectangle(850, 50, 300, 100, Color.LIGHT_GRAY);
+        Rectangle rCforStation = new Rectangle(850, 200, 300, 100, Color.GRAY);
+        Text tCforLines = new Text(938, 115, "Lines", 50);
+        Text tCforStations = new Text(910, 265, "Stations", 50);
+        
+        frame.add(tCforLines);
+        frame.setVisible(true); 
+        frame.add(tCforStations);
+        frame.setVisible(true); 
+        frame.add(rCforLines);
+        frame.setVisible(true); 
+        frame.add(rCforStation);
+        frame.setVisible(true); 
+        
+        
+        Starter.addGrid(frame, 20);
+        
+        class myClickListener implements MouseListener{
+            boolean released = true;
+            boolean linePressed = false;
+            boolean stationPressed = true;
+            boolean realeasedJustChanged = false;
+            boolean stationHere = false;
+            int xPos;
+            int yPos;
+            int addStation;
+            Color color = Color.WHITE;
+            ArrayList<int[]> points = new <int[]>ArrayList();
+            
+            public void mouseClicked(MouseEvent e) {
+                realeasedJustChanged = false;
+                if(linePressed == true && released == true){
+                    xPos = e.getX()-10;
+                    yPos = e.getY()-40;
+                    released = false;
+                    realeasedJustChanged = true;
                 }
-                if(e.getKeyCode()==KeyEvent.VK_RIGHT) line.moveX(3);
-                if(e.getKeyCode()==KeyEvent.VK_UP) line.moveY(-3);
-                if(e.getKeyCode()==KeyEvent.VK_DOWN) line.moveY(3);
+                if(linePressed == true && released == false && realeasedJustChanged == false){
+                    Line lC = new Line(xPos, yPos, e.getX()-10, e.getY()-40, Color.BLACK);
+                    color = JColorChooser.showDialog(lC, "Choose Your Color:", Color.BLACK);
+                    lC.setColor(color);
+                    frame.add(lC);
+                    frame.setVisible(true); 
+                    xPos = e.getX()-14;
+                    yPos = e.getY()-43;
+                    released = true;
+                }
+
+                 if(e.getX()-10 > 845 && e.getX()-10 <1155 && e.getY()-40 >45 && e.getY()-40 < 155){
+                    rCforLines.setColor(Color.GRAY);
+                    rCforStation.setColor(Color.LIGHT_GRAY);
+                    linePressed = true;
+                    stationPressed = false;
+                    released = true;
+                }
+                
+                if(stationPressed == true){
+                    xPos = e.getX()-10;
+                    yPos = e.getY()-40;
+                    stationHere = false;
+                    for(int i = 0; i < points.size(); i++){
+                        if(points.get(i)[0] +10 > xPos && points.get(i)[0] - 10 < xPos && points.get(i)[1]+ 10 > yPos && points.get(i)[1] -10 < yPos ){
+                            JOptionPane.showMessageDialog(null, "You already have a station here.");
+                            stationHere = true;
+                        }
+                    }
+                    if(stationHere == false){
+                         Circle cC = new Circle(xPos, yPos, 10, Color.WHITE);
+                         color = JColorChooser.showDialog(cC, "Choose Your Color:", Color.BLACK);
+                         cC.setColor(color);
+                         frame.add(cC);
+                         frame.setVisible(true);
+                         String input = JOptionPane.showInputDialog(null, "Please enter the name of your station that you would like:");
+                         Text tC = new Text(xPos-11, yPos+21, input, 12);
+                         frame.add(tC);
+                         frame.setVisible(true);
+                         int[] pointForStation = {xPos, yPos};
+                         points.add(pointForStation);
+                    }
+                }
+                
+               
+                if(e.getX()-10 > 845 && e.getX()-10 <1155 && e.getY()-40 >195 && e.getY()-40 < 305){
+                    rCforLines.setColor(Color.LIGHT_GRAY);
+                    rCforStation.setColor(Color.GRAY);
+                    linePressed = false;
+                    stationPressed = true;
+                }
             }
-            public void keyReleased(KeyEvent e){}
-            public void keyTyped(KeyEvent e){}   
+            public void mousePressed(MouseEvent e) {}
+            public void mouseEntered(MouseEvent e) {}
+            public void mouseExited(MouseEvent e) {}
+            public void mouseReleased(MouseEvent e) {}
         }
-
-        f.addKeyListener(new myKeyListener());//add keylistener to frame
-
+        frame.addMouseListener(new myClickListener());
+    }
+    
+    public static void addGrid(JFrame frame, int everyXpixles){
+        frame.getHeight();
+        frame.getWidth();
+        int xStart = 0;
+        int yStart = 0;
+        int howManyGrids;
+        if(frame.getHeight() > frame.getWidth()){
+            howManyGrids = frame.getHeight() / everyXpixles;
+        }else{
+            howManyGrids = frame.getWidth() / everyXpixles;
+        }
+         
+        for(int i =0; i< howManyGrids; i++){
+            yStart = 0;
+            xStart = xStart + everyXpixles;
+            Line line = new Line(xStart, yStart, xStart,frame.getHeight(), Color.LIGHT_GRAY);
+            frame.add(line);
+            frame.setVisible(true);
+        }
+        for(int i = 0; i< howManyGrids; i++){
+            xStart = 0;
+            yStart = yStart + everyXpixles;
+            Line line = new Line(xStart, yStart, frame.getWidth(),yStart, Color.LIGHT_GRAY);
+            frame.add(line);
+            frame.setVisible(true);
+        }
+        
     }
 }

@@ -3,10 +3,7 @@ import java.awt.event.*;
 import javax.swing.JOptionPane;
 import javax.swing.JColorChooser;
 import java.awt.Color;
-import javax.swing.JComponent;
 import java.util.ArrayList;
-import java.lang.Float;
-import java.awt.Dialog;
 
 public class Starter{
     public static void main(String[] args){
@@ -86,6 +83,7 @@ public class Starter{
                     xPos = e.getX()-10;
                     yPos = e.getY()-40;
                     stationHere = false;
+                    //checks if there is already a station where the user clicked
                     for(int i = 0; i < points.size(); i++){
                         if(points.get(i)[0] +10 > xPos && points.get(i)[0] - 10 < xPos && points.get(i)[1]+ 10 > yPos && points.get(i)[1] -10 < yPos ){
                             JOptionPane.showMessageDialog(null, "You already have a station here.");

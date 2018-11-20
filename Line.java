@@ -4,8 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.geom.Line2D;
 import java.awt.BasicStroke;
-import java.awt.Image;
-import java.awt.Toolkit;
 public class Line extends JComponent{
     Line2D line;
     Color color;
